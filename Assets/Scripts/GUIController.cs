@@ -8,6 +8,7 @@ public class GUIController : MonoBehaviour
 {
     public UserMovement userInput;
     public GameObject wallCustoms;
+    public GameObject kitchenPlacement;
     public PlaceObject wallInfo;
     public List<Transform> inputBoxList = new List<Transform>();
     public string widthText;
@@ -22,6 +23,7 @@ public class GUIController : MonoBehaviour
     void Start()
     {
         wallCustoms.SetActive(false);
+        kitchenPlacement.SetActive(false);
         foreach (Transform eachChild in wallCustoms.transform)
         {
             if (eachChild.tag == "InputBox")
@@ -34,10 +36,13 @@ public class GUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        width = wallInfo.lastItem.transform.localScale.x;
-        length = wallInfo.lastItem.transform.localScale.z;
-        posLeft = wallInfo.lastItem.transform.localPosition.x;
-        posDown = wallInfo.lastItem.transform.localPosition.z;
+        if (wallInfo.lastItem != null)
+        {
+            width = wallInfo.lastItem.transform.localScale.x;
+            length = wallInfo.lastItem.transform.localScale.z;
+            posLeft = wallInfo.lastItem.transform.localPosition.x;
+            posDown = wallInfo.lastItem.transform.localPosition.z;
+        }
 
 
         if (userInput.ghostMode == false)
@@ -57,7 +62,7 @@ public class GUIController : MonoBehaviour
         
     }
 
-    public void inputController()
+    public void wallInputController()
     {
         float.TryParse(inputBoxList[0].GetComponentInChildren<InputField>().text, out width);
         float.TryParse(inputBoxList[1].GetComponentInChildren<InputField>().text, out length);
@@ -72,6 +77,19 @@ public class GUIController : MonoBehaviour
             }
         }
     }
+
+    public void kitchenPlacementController()
+    {
+        if(userInput.kitchenPlacementScene)
+        {
+            kitchenPlacement.SetActive(true);
+        }
+        else
+        {
+            kitchenPlacement.SetActive(false);
+        }
+    }
+
     public void setBox()
     {
         inputBoxList[0].GetComponentInChildren<InputField>().text = width.ToString();
@@ -85,5 +103,8 @@ public class GUIController : MonoBehaviour
     {
         userInput.ghostMode = false;
         userInput.wallScene = false;
+        userInput.kitchenPlacementScene = true;
     }
+
+
 }

@@ -49,14 +49,13 @@ public class PlaceObject : MonoBehaviour
                         {
                             walls.Add(wallSpawner.placeObj(spawnLoc, rotation));
                             //walls.Add(wallSpawner.placeObj(spawnLoc, rotation));
-                            lastItem.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
+                            if (lastItem != null)
+                            {
+                                lastItem.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
+                            }
                         }
                     }
                 }
-            }
-            else if(!userInput.wallScene)
-            {
-                userInput.kitchenPlacementScene = true;
             }
         }
     }

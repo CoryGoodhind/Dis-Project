@@ -53,6 +53,7 @@
     <UnityVersion>2020.3.26f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\WallInfo.cs" />
     <Compile Include="Assets\Scripts\PlaceObject.cs" />
     <Compile Include="Assets\Scripts\UserMovement.cs" />
     <Compile Include="Assets\Scripts\KitchenPlacement.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Assets\Scripts\MoveGhost.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
-    <Compile Include="Assets\WallInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

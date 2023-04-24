@@ -31,9 +31,20 @@ public class UserMovement : MonoBehaviour
         {
             MoveUserCamera();
             userInputMeasurementView();
-        } 
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                Debug.Log("resume");
+                ghostMode = true;
+                Cursor.lockState = CursorLockMode.Locked;
+
+            }
+        }
         if(kitchenPlacementScene)
         {
+            MoveUserCamera();
 
         }
     }
@@ -69,12 +80,7 @@ public class UserMovement : MonoBehaviour
             rotateObject = false;
             Debug.Log("rotated q");
         }
-        if(Input.GetKey(KeyCode.R))
-        {
-            ghostMode = true;
-            Cursor.lockState = CursorLockMode.Locked;
-
-        }
+        
     }
     private void MoveUserCamera()
     {
