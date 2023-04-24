@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{8C8D56EB-4712-6BA2-4A8A-8CC436ADA946}</ProjectGuid>
+    <ProjectGuid>{F330E97C-0E26-550E-1BFA-23F7C06579DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,12 +53,14 @@
     <UnityVersion>2020.3.26f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Class\User\PlaceObject.cs" />
-    <Compile Include="Assets\Class\User\UserMovement.cs" />
-    <Compile Include="Assets\MoveGhost.cs" />
-    <Compile Include="Assets\MenuController.cs" />
-    <Compile Include="Assets\Wall.cs" />
-    <Compile Include="Assets\GUIController.cs" />
+    <Compile Include="Assets\Scripts\PlaceObject.cs" />
+    <Compile Include="Assets\Scripts\UserMovement.cs" />
+    <Compile Include="Assets\Scripts\KitchenPlacement.cs" />
+    <Compile Include="Assets\Scripts\GUIController.cs" />
+    <Compile Include="Assets\Scripts\MoveGhost.cs" />
+    <Compile Include="Assets\Scripts\MenuController.cs" />
+    <Compile Include="Assets\Scripts\Wall.cs" />
+    <Compile Include="Assets\WallInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
