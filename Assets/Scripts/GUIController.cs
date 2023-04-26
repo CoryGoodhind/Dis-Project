@@ -11,6 +11,7 @@ public class GUIController : MonoBehaviour
     public GameObject kitchenPlacement;
     public PlaceObject wallInfo;
     public List<Transform> inputBoxList = new List<Transform>();
+    public List<Transform> cabPickerDropList = new List<Transform>();
     public string widthText;
     public float width;
     public float length;
@@ -29,6 +30,13 @@ public class GUIController : MonoBehaviour
             if (eachChild.tag == "InputBox")
             {
                 inputBoxList.Add(eachChild);
+            }
+        }
+        foreach(Transform eachChild in kitchenPlacement.transform)
+        {
+            if(eachChild.tag == "DropBox")
+            {
+                cabPickerDropList.Add(eachChild);
             }
         }
     }
@@ -59,6 +67,7 @@ public class GUIController : MonoBehaviour
             setBoxYet = false;
             wallCustoms.SetActive(false);
         }
+        kitchenPlacementController();
         
     }
 
@@ -104,6 +113,48 @@ public class GUIController : MonoBehaviour
         userInput.ghostMode = false;
         userInput.wallScene = false;
         userInput.kitchenPlacementScene = true;
+    }
+
+    public void kitchenPlacementDropboxController()
+    {
+        
+        if(cabPickerDropList[0].name == "CabinetPicker")
+        {
+            if (cabPickerDropList[0].GetComponent<Dropdown>().value == 0)
+            {
+                cabPickerDropList[1].GetComponent<Dropdown>().ClearOptions();
+                userInput.currentKitchenUnit = userInput.cabinets[0];
+            }
+            if (cabPickerDropList[0].GetComponent<Dropdown>().value == 1 || cabPickerDropList[0].GetComponent<Dropdown>().value == 2)
+            {
+                List<string> dropOptions = new List<string> { "600mm", "800mm" };
+                cabPickerDropList[1].GetComponent<Dropdown>().ClearOptions();
+                cabPickerDropList[1].GetComponent<Dropdown>().AddOptions(dropOptions);
+                if(cabPickerDropList[0].GetComponent<Dropdown>().value == 1)
+                {
+                    userInput.currentKitchenUnit = userInput.cabinets[8];
+                }
+                else
+                {
+                    userInput.currentKitchenUnit = userInput.cabinets[6];
+                }
+            }
+            if (cabPickerDropList[0].GetComponent<Dropdown>().value == 3 || cabPickerDropList[0].GetComponent<Dropdown>().value == 4)
+            {
+                List<string> dropOptions = new List<string> { "600mm"};
+                cabPickerDropList[1].GetComponent<Dropdown>().ClearOptions();
+                cabPickerDropList[1].GetComponent<Dropdown>().AddOptions(dropOptions);
+                if (cabPickerDropList[0].GetComponent<Dropdown>().value == 3)
+                {
+                    userInput.currentKitchenUnit = userInput.cabinets[7];
+                }
+                else
+                {
+                    userInput.currentKitchenUnit = userInput.cabinets[5];
+                }
+            }
+        }
+        
     }
 
 

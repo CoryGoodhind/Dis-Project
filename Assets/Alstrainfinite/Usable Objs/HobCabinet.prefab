@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2009813178108498056}
   - component: {fileID: 4323663613318308930}
   - component: {fileID: 6356872852523924559}
+  - component: {fileID: 4566778731252109465}
   m_Layer: 0
   m_Name: HobCabinet
-  m_TagString: Untagged
+  m_TagString: unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,12 +92,25 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2810318006153971095}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5340113442875233775, guid: 4e95033fa06329a47b7c03a22b10373c, type: 3}
+--- !u!114 &4566778731252109465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2810318006153971095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e9937a7864f3742be60fed7723e4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user: {fileID: 0}
 --- !u!1001 &6788080382563435628
 PrefabInstance:
   m_ObjectHideFlags: 0

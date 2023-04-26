@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\MoveGhost.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
+    <Compile Include="Assets\Alstrainfinite\Usable Objs\KitchenCabinetHandle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

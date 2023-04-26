@@ -13,6 +13,21 @@ public class UserMovement : MonoBehaviour
     public bool ghostMode = true;
     public bool wallScene = true;
     public bool kitchenPlacementScene = false;
+    public bool ghostKitchenPlacement = false;
+    public GameObject currentKitchenUnit;
+    public bool kitchenUnitPlaced = false;
+
+    public bool collisionWithUnit = false;
+
+    public GameObject twoDrawer;
+    public GameObject threeDrawer;
+    public GameObject baseCabinet;
+    public GameObject cornerCabinet;
+    public GameObject fridge;
+    public GameObject hobCabinet;
+    public GameObject oven;
+    public GameObject sinkCabinet;
+    public List<GameObject> cabinets;
 
 
     [SerializeField] private Transform UserCam;
@@ -22,6 +37,8 @@ public class UserMovement : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
+        cabinets = new List<GameObject> { null, twoDrawer, threeDrawer, baseCabinet, cornerCabinet, fridge, hobCabinet, oven, sinkCabinet };
     }
     private void Update()
     {
@@ -36,16 +53,14 @@ public class UserMovement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.R))
             {
-                Debug.Log("resume");
                 ghostMode = true;
                 Cursor.lockState = CursorLockMode.Locked;
 
             }
         }
-        if(kitchenPlacementScene)
+        if(ghostKitchenPlacement)
         {
             MoveUserCamera();
-
         }
     }
     /*
@@ -73,12 +88,10 @@ public class UserMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.E) && rotateObject == false)
         {
             rotateObject = true;
-            Debug.Log("rotated e");
         }
         else if (Input.GetKey(KeyCode.Q) && rotateObject == true)
         {
             rotateObject = false;
-            Debug.Log("rotated q");
         }
         
     }

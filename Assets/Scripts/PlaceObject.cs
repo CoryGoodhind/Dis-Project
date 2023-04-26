@@ -23,6 +23,11 @@ public class PlaceObject : MonoBehaviour
         {
             destroyItem();
         }
+        if (userInput.ghostMode && lastItem != null)
+        {
+            lastItem.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
+        }
+
         //selectItem();
     }
     void placeItem()
@@ -88,7 +93,6 @@ public class PlaceObject : MonoBehaviour
                 lastItem.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
             }
             lastItem = hit.transform.gameObject;
-            Debug.Log("HIT");
             hit.transform.gameObject.GetComponentInChildren<Renderer>().material.color = highlightItemColor;
             userInput.ghostMode = false;
             Cursor.lockState = CursorLockMode.Confined;

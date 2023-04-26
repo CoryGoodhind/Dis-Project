@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4719013917132205562}
   - component: {fileID: 7393144146860103984}
   - component: {fileID: 4971249303702613417}
+  - component: {fileID: 3064998205757548544}
   m_Layer: 0
   m_Name: 3DrawerCabinet
-  m_TagString: Untagged
+  m_TagString: unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,9 +91,22 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9050340922947369189}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5599560898891337667, guid: 3d3a9b7ee2f038a4ba751b8c798247e9, type: 3}
+--- !u!114 &3064998205757548544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050340922947369189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e9937a7864f3742be60fed7723e4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user: {fileID: 0}

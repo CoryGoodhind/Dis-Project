@@ -262,7 +262,7 @@ RectTransform:
   - {fileID: 1623197449}
   - {fileID: 952785174}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -286,6 +286,7 @@ MonoBehaviour:
   kitchenPlacement: {fileID: 1623197448}
   wallInfo: {fileID: 475040079}
   inputBoxList: []
+  cabPickerDropList: []
   widthText: 
   width: 0
   length: 0
@@ -651,7 +652,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &209717080
 GameObject:
@@ -1036,7 +1037,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Option A
+  m_Text: 
 --- !u!222 &436572704
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1058,8 +1059,8 @@ GameObject:
   - component: {fileID: 459180861}
   - component: {fileID: 459180860}
   m_Layer: 5
-  m_Name: CabinetPicker
-  m_TagString: Untagged
+  m_Name: SizePicker
+  m_TagString: DropBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1134,13 +1135,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Option A
-      m_Image: {fileID: 0}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
-    - m_Text: Option C
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1198,7 +1193,7 @@ GameObject:
   - component: {fileID: 475040080}
   m_Layer: 0
   m_Name: User
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1220,6 +1215,19 @@ MonoBehaviour:
   ghostMode: 1
   wallScene: 1
   kitchenPlacementScene: 0
+  ghostKitchenPlacement: 0
+  currentKitchenUnit: {fileID: 0}
+  kitchenUnitPlaced: 0
+  collisionWithUnit: 0
+  twoDrawer: {fileID: 1254602173230087908, guid: 6d6a8d9f57f0c0343af474c30aeecab5, type: 3}
+  threeDrawer: {fileID: 9050340922947369189, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+  baseCabinet: {fileID: 2810318006153971095, guid: 34200d5e11ca6e4458c2704cebebdc60, type: 3}
+  cornerCabinet: {fileID: 5876336530773533248, guid: 94b99c931b5c439468d52e7f9829c3aa, type: 3}
+  fridge: {fileID: 5413734714468200646, guid: 7b5ec1159cb969d4a8fe69fddc2f17d8, type: 3}
+  hobCabinet: {fileID: 2810318006153971095, guid: 52d564b3818bef94bbfc6f71d0950375, type: 3}
+  oven: {fileID: 6202668810318017221, guid: 158f818f5cdf7f54f8cb6f3b74f535c8, type: 3}
+  sinkCabinet: {fileID: 2810318006153971095, guid: ae4d2da4533ca0745843aedc31f25809, type: 3}
+  cabinets: []
   UserCam: {fileID: 963194228}
   controller: {fileID: 475040077}
   speed: 0
@@ -1255,7 +1263,7 @@ Transform:
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &475040079
 MonoBehaviour:
@@ -1293,7 +1301,9 @@ MonoBehaviour:
   userInput: {fileID: 475040076}
   placeObjScript: {fileID: 475040079}
   objectToPlace: {fileID: 0}
+  kitchenObjsPlaced: []
   rotKitchenUnit: 0
+  raycastPoint: {fileID: 666092313}
   tempList: []
 --- !u!1 &487470578
 GameObject:
@@ -1365,7 +1375,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sink Unit
+  m_Text: Select Cabinet
 --- !u!222 &487470581
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1621,7 +1631,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &741220984
 GameObject:
@@ -2345,6 +2355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostObject: {fileID: 1072910369}
   userInput: {fileID: 475040076}
+  raycastPoint: {fileID: 666092313}
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -2903,7 +2914,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1119294088
 GameObject:
@@ -3029,8 +3040,8 @@ GameObject:
   - component: {fileID: 1156207036}
   - component: {fileID: 1156207035}
   m_Layer: 5
-  m_Name: SizePicker
-  m_TagString: Untagged
+  m_Name: CabinetPicker
+  m_TagString: DropBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3106,19 +3117,31 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Sink Unit
+    - m_Text: Select Cabinet
       m_Image: {fileID: 0}
-    - m_Text: Oven Unit
+    - m_Text: Sink Unit
       m_Image: {fileID: 0}
     - m_Text: Hob Unit
       m_Image: {fileID: 0}
-    - m_Text: Hob + Oven Unit
+    - m_Text: Oven Unit
       m_Image: {fileID: 0}
     - m_Text: Fridge
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 18563501}
+        m_TargetAssemblyTypeName: GUIController, Assembly-CSharp
+        m_MethodName: kitchenPlacementDropboxController
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1156207036
 MonoBehaviour:
@@ -3909,9 +3932,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 18563501}
-        m_TargetAssemblyTypeName: GUIController, Assembly-CSharp
-        m_MethodName: finishWallsScene
+      - m_Target: {fileID: 475040080}
+        m_TargetAssemblyTypeName: KitchenPlacement, Assembly-CSharp
+        m_MethodName: startGhostKitchenPlacement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5245,6 +5268,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063231959}
   m_CullTransparentMesh: 1
+--- !u!1001 &2080138081
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5910826
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.844867
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562070437528674911, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050340922947369189, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
+      propertyPath: m_Name
+      value: 3DrawerCabinet
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a8c05189a2c370943b6d4162a18a95ee, type: 3}
 --- !u!1 &2095074191
 GameObject:
   m_ObjectHideFlags: 0
