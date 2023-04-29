@@ -7,12 +7,16 @@ public class KitchenPlacement : MonoBehaviour
 {
     public UserMovement userInput;
     public PlaceObject placeObjScript;
-    float wallThickness = 0.5f;
+    float wallThickness = 0.05f;
     float wallHeightScale = 2.4f;
     public GameObject objectToPlace;
-    public List<GameObject> kitchenObjsPlaced = new List<GameObject>();
+    
     public bool rotKitchenUnit = false;
     public Transform raycastPoint;
+    public Transform baseFloor;
+    private GameObject lastItem;
+    float cabDepth = 0.3f;
+    float cabWidth = 0.3f;
     
 
 
@@ -44,7 +48,14 @@ public class KitchenPlacement : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && userInput.ghostKitchenPlacement)
         {
-            userInput.kitchenUnitPlaced = true;
+            if (!userInput.collisionWithUnit)
+            {
+
+                userInput.kitchenUnitPlaced = true;
+                Cursor.lockState = CursorLockMode.Confined;
+                userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].GetComponent<KitchenCabinetHandle>().wallPlacement = userInput.lastWallKitchenUnit.transform.name;
+                userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].GetComponent<KitchenCabinetHandle>().activeUnit = false;
+            }
         }
     }
 
@@ -67,33 +78,34 @@ public class KitchenPlacement : MonoBehaviour
         float LeftZ = 0f;
         float rightZ = 0f;
 
-        foreach(GameObject Wall in placeObjScript.walls)
+        foreach (GameObject Wall in placeObjScript.walls)
         {
-            if(Wall.name == "Top")
+
+            if (Wall.name == "Top")
             {
-                Wall.transform.position = new Vector3(Wall.transform.position.x, Wall.transform.position.y, Wall.transform.position.z + wallThickness / 2);
+
                 topX = Wall.transform.position.x;
+                Debug.Log(topX);
             }
             else if (Wall.name == "Bottom")
             {
-                Wall.transform.position = new Vector3(Wall.transform.position.x, Wall.transform.position.y, Wall.transform.position.z - wallThickness / 2);
                 bottomX = Wall.transform.position.x;
             }
             else if (Wall.name == "Left")
             {
-                Wall.transform.position = new Vector3(Wall.transform.position.x + wallThickness/2, Wall.transform.position.y, Wall.transform.position.z);
                 LeftZ = Wall.transform.position.z;
             }
             else if (Wall.name == "Right")
             {
-                Wall.transform.position = new Vector3(Wall.transform.position.x - wallThickness / 2, Wall.transform.position.y, Wall.transform.position.z);
                 rightZ = Wall.transform.position.z;
             }
             Wall.transform.localScale = new Vector3(Wall.transform.localScale.x, Wall.transform.localScale.y * wallHeightScale, wallThickness);
         }
 
-        //this.transform.position = new Vector3((topX + bottomX) / 2, this.transform.position.y - 7, (LeftZ + rightZ) / 2);
-        
+        this.transform.position = new Vector3((topX + bottomX) / 2, this.transform.position.y - 5, (LeftZ + rightZ) / 2);
+        this.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+
         return true;
     }
 
@@ -120,7 +132,7 @@ public class KitchenPlacement : MonoBehaviour
             userInput.kitchenUnitPlaced = false;
             userInput.ghostKitchenPlacement = true;
             
-            kitchenObjsPlaced.Add(Instantiate(objectToPlace));
+            userInput.kitchenObjsPlaced.Add(Instantiate(objectToPlace));
         }
     }
 
@@ -129,26 +141,69 @@ public class KitchenPlacement : MonoBehaviour
     {
         if (userInput.ghostKitchenPlacement)
         {
-            if (kitchenObjsPlaced != null)
+            userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].GetComponent<KitchenCabinetHandle>().activeUnit = true;
+            if (userInput.kitchenObjsPlaced != null)
             {
+                
                 RaycastHit hit;
                 Cursor.lockState = CursorLockMode.Locked;
 
                 if (Physics.Raycast(raycastPoint.position, raycastPoint.forward, out hit))
                 {
-                    Debug.Log(hit.point);
+                    selectItem(hit);
+                    //Debug.Log(hit.point);
+
                     Quaternion rotation = Quaternion.identity;
-                    Vector3 ghostPos = new Vector3(hit.point.x, objectToPlace.transform.position.y + (objectToPlace.transform.localScale.y/2), hit.point.z);
-                    if (rotKitchenUnit)
+                    Vector3 ghostPos = new Vector3(hit.point.x, 0.5f, hit.point.z); ;
+                    if (userInput.lastWallKitchenUnit != null)
                     {
-                        Debug.Log("rotated object");
-                        rotation = new Quaternion(Quaternion.identity.x, Quaternion.identity.y + 1f, Quaternion.identity.z, Quaternion.identity.w);
+                        if (!userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].GetComponent<KitchenCabinetHandle>().collisionDet)
+                        {
+                            if (userInput.lastWallKitchenUnit.transform.name == "Top")
+                            {
+                                ghostPos = new Vector3(hit.point.x, 0.5f, userInput.lastWallKitchenUnit.transform.position.z - cabDepth);
+                                userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].transform.rotation = Quaternion.Euler(Quaternion.identity.x, 180f, Quaternion.identity.z);
+                            }
+                            else if (userInput.lastWallKitchenUnit.transform.name == "Bottom")
+                            {
+                                //rotation = new Quaternion(Quaternion.identity.x, 0, Quaternion.identity.z, Quaternion.identity.w);
+                                ghostPos = new Vector3(hit.point.x, 0.5f, userInput.lastWallKitchenUnit.transform.position.z + cabDepth);
+                                userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].transform.rotation = Quaternion.Euler(Quaternion.identity.x, 0f, Quaternion.identity.z);
+                            }
+                            else if (userInput.lastWallKitchenUnit.transform.name == "Left")
+                            {
+                                //rotation = new Quaternion(Quaternion.identity.x, 1, Quaternion.identity.z, Quaternion.identity.w);
+                                ghostPos = new Vector3(userInput.lastWallKitchenUnit.transform.position.x + cabWidth, 0.5f, hit.point.z);
+                                userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].transform.rotation = Quaternion.Euler(Quaternion.identity.x, 90f, Quaternion.identity.z);
+                            }
+                            else if (userInput.lastWallKitchenUnit.transform.name == "Right")
+                            {
+                                //rotation = new Quaternion(Quaternion.identity.x, -1, Quaternion.identity.z, Quaternion.identity.w);
+                                ghostPos = new Vector3(userInput.lastWallKitchenUnit.transform.position.x - cabWidth, 0.5f, hit.point.z);
+                                userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].transform.rotation = Quaternion.Euler(Quaternion.identity.x, -90f, Quaternion.identity.z);
+                            }
+                            userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].transform.position = ghostPos;
+                        }
+                        //userInput.kitchenObjsPlaced[userInput.kitchenObjsPlaced.Count - 1].transform.rotation = rotation;
                     }
-                    kitchenObjsPlaced[kitchenObjsPlaced.Count - 1].transform.position = ghostPos;
-                    kitchenObjsPlaced[kitchenObjsPlaced.Count - 1].transform.rotation = rotation;
                 }
             }
             
+        }
+    }
+
+    void selectItem(RaycastHit hit)
+    {
+        if (hit.transform.tag == "Wall")
+        {
+            if (userInput.lastWallKitchenUnit != null)
+            {
+                //lastItem.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
+            }
+            userInput.lastWallKitchenUnit = hit.transform.gameObject;
+            //hit.transform.gameObject.GetComponentInChildren<Renderer>().material.color = highlightItemColor;
+            //userInput.ghostMode = false;
+            //Cursor.lockState = CursorLockMode.Confined;
         }
     }
 }

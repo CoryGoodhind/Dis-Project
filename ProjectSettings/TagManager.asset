@@ -9,6 +9,7 @@ TagManager:
   - InputBox
   - DropBox
   - unit
+  - raycastPoint
   layers:
   - Default
   - TransparentFX

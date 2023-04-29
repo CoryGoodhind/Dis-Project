@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2675181522024830910}
   - component: {fileID: 8395253029812974738}
   - component: {fileID: 1307342838025552684}
+  - component: {fileID: -6332827427401008307}
   m_Layer: 0
   m_Name: Washer
   m_TagString: Untagged
@@ -111,6 +112,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   user: {fileID: 0}
+  collisionDet: 0
+--- !u!54 &-6332827427401008307
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476818941290034795}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6657089071645958152
 GameObject:
   m_ObjectHideFlags: 0

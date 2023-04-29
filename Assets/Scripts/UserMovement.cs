@@ -16,6 +16,7 @@ public class UserMovement : MonoBehaviour
     public bool ghostKitchenPlacement = false;
     public GameObject currentKitchenUnit;
     public bool kitchenUnitPlaced = false;
+    public GameObject lastWallKitchenUnit;
 
     public bool collisionWithUnit = false;
 
@@ -28,6 +29,7 @@ public class UserMovement : MonoBehaviour
     public GameObject oven;
     public GameObject sinkCabinet;
     public List<GameObject> cabinets;
+    public List<GameObject> kitchenObjsPlaced = new List<GameObject>();
 
 
     [SerializeField] private Transform UserCam;
@@ -97,8 +99,20 @@ public class UserMovement : MonoBehaviour
     }
     private void MoveUserCamera()
     {
+        
         xRotation -= UserMouseInput.y * sentitivity;
-        transform.Rotate(0f, UserMouseInput.x * sentitivity, 0f);
-        UserCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        
+        
+
+        if (kitchenPlacementScene)
+        {
+            transform.Rotate(0f, 0f, -(UserMouseInput.x * sentitivity));
+            UserCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
+        else 
+        {
+            transform.Rotate(0f, UserMouseInput.x * sentitivity, 0f);
+            UserCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
     }
 }
