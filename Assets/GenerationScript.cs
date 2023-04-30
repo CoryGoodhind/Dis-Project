@@ -362,7 +362,7 @@ public class GenerationScript : MonoBehaviour
                 int nextObj = 0;
                 for (int t = cabSizes.Count-1; t>-1; t--)
                 {
-                    /*
+                    
                     float prevXPos = TopWallUnits[i].transform.position.x;
                     Debug.Log(cabSizes[t]);
                     if (tempGap > cabSizes[t])
@@ -380,7 +380,7 @@ public class GenerationScript : MonoBehaviour
                         Vector3 cabScale = new Vector3(cabScaleX, 1f, 1f);
                         Quaternion rotation = Quaternion.Euler(0, 180, 0);
                         Debug.Log(xPush);
-                        Vector3 tempPos = new Vector3(prevXPos + (cabSizes[t] / 1000) + xPush, TopWallUnits[i].transform.position.y, TopWallUnits[i].transform.position.z - 0.3f);
+                        Vector3 tempPos = new Vector3(prevXPos + (cabSizes[t] / 1000) + xPush*1.2f, TopWallUnits[i].transform.position.y, TopWallUnits[i].transform.position.z - 0.3f);
                         TopWallUnits.Insert(i+1, Instantiate(objectToPlace, tempPos, rotation));
                         Debug.Log(TopWallUnits[i + 1].transform.position.x);
                         TopWallUnits[i+1].transform.localScale = cabScale;
@@ -388,7 +388,7 @@ public class GenerationScript : MonoBehaviour
                         tempGap -= cabSizes[t];
                         prevXPos = tempPos.x;
                     }
-                    */
+                    
                 }
             }
         }
