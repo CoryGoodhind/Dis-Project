@@ -6,7 +6,7 @@ public class PlaceObject : MonoBehaviour
 {
     public Transform raycasePoint;
     public GameObject itemToPlace;
-    public List<GameObject> walls = new List<GameObject>();
+    
     public int maxWalls = 4;
     public GameObject lastItem;
     public Color baseItemColor;
@@ -23,9 +23,9 @@ public class PlaceObject : MonoBehaviour
         {
             destroyItem();
         }
-        if (userInput.ghostMode && lastItem != null)
+        if (!userInput.ghostMode)
         {
-            lastItem.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
+            //lastItem.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
         }
 
         //selectItem();
@@ -42,9 +42,9 @@ public class PlaceObject : MonoBehaviour
                 }
                 else
                 {
-                    if (walls.Count < maxWalls)
+                    if (userInput.walls.Count < maxWalls)
                     {
-                        Vector3 spawnLoc = new Vector3(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.y), Mathf.RoundToInt(hit.point.z));
+                        Vector3 spawnLoc = new Vector3(Mathf.RoundToInt(hit.point.x), 1f, Mathf.RoundToInt(hit.point.z));
                         Quaternion rotation = Quaternion.identity;
                         if (userInput.rotateObject)
                         {
@@ -52,7 +52,7 @@ public class PlaceObject : MonoBehaviour
                         }
                         if (spawnLoc.y <= 1)
                         {
-                            walls.Add(wallSpawner.placeObj(spawnLoc, rotation));
+                            userInput.walls.Add(wallSpawner.placeObj(spawnLoc, rotation));
                             //walls.Add(wallSpawner.placeObj(spawnLoc, rotation));
                             if (lastItem != null)
                             {
@@ -72,11 +72,11 @@ public class PlaceObject : MonoBehaviour
             if (hit.transform.tag == "Wall")
             {
 
-                for (int i = 0; i < walls.Count; i++)
+                for (int i = 0; i < userInput.walls.Count; i++)
                 {
-                    if (walls[i].gameObject == hit.transform.gameObject)
+                    if (userInput.walls[i].gameObject == hit.transform.gameObject)
                     {
-                        walls.RemoveAt(i);
+                        userInput.walls.RemoveAt(i);
                     }
                 }
                 Destroy(hit.transform.gameObject);

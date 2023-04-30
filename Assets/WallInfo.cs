@@ -15,6 +15,7 @@ public class WallInfo : MonoBehaviour
     public int length;
     public int width;
     public int height;
+    public bool isbeingUsed;
 
 
     // Start is called before the first frame update

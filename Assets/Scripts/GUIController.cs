@@ -8,18 +8,25 @@ public class GUIController : MonoBehaviour
 {
     public UserMovement userInput;
     public GameObject wallCustoms;
+    public GameObject wallSelectorGUI;
     public GameObject kitchenPlacement;
     public PlaceObject wallInfo;
+    public GameObject DrawerDropdown;
+    public GameObject StorageDropdown;
     public List<Transform> inputBoxList = new List<Transform>();
     public List<Transform> cabPickerDropList = new List<Transform>();
+    public List<Transform> tickBoxList = new List<Transform>();
     public string widthText;
     public float width;
     public float length;
     public float posLeft;
     public float posDown;
     public bool setBoxYet = false;
-    
-    
+    public Color baseItemColor;
+    public Color highlightItemColor;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +46,13 @@ public class GUIController : MonoBehaviour
                 cabPickerDropList.Add(eachChild);
             }
         }
+        foreach (Transform eachChild in wallSelectorGUI.transform)
+        {
+            if (eachChild.tag == "TickBox")
+            {
+                tickBoxList.Add(eachChild);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -52,6 +66,14 @@ public class GUIController : MonoBehaviour
             posDown = wallInfo.lastItem.transform.localPosition.z;
         }
 
+        if(userInput.wallSelectorScene == true)
+        {
+            wallSelectorGUI.SetActive(true);
+        }
+        else
+        {
+            wallSelectorGUI.SetActive(false);
+        }
 
         if (userInput.ghostMode == false)
         {
@@ -77,7 +99,7 @@ public class GUIController : MonoBehaviour
         float.TryParse(inputBoxList[1].GetComponentInChildren<InputField>().text, out length);
         float.TryParse(inputBoxList[2].GetComponentInChildren<InputField>().text, out posLeft);
         float.TryParse(inputBoxList[3].GetComponentInChildren<InputField>().text, out posDown);
-        foreach (GameObject wall in wallInfo.walls)
+        foreach (GameObject wall in userInput.walls)
         {
             if(wall == wallInfo.lastItem)
             {
@@ -92,6 +114,7 @@ public class GUIController : MonoBehaviour
         if(userInput.kitchenPlacementScene)
         {
             kitchenPlacement.SetActive(true);
+            wallCustoms.SetActive(false);
         }
         else
         {
@@ -112,7 +135,13 @@ public class GUIController : MonoBehaviour
     {
         userInput.ghostMode = false;
         userInput.wallScene = false;
+        userInput.wallSelectorScene = true;
         userInput.kitchenPlacementScene = true;
+    }
+
+    public void finishWallSelection()
+    {
+        userInput.wallSelectorScene = false;
     }
 
     public void kitchenPlacementDropboxController()
@@ -157,5 +186,71 @@ public class GUIController : MonoBehaviour
         
     }
 
+    public void toggleHandle()
+    {
+        foreach (GameObject wall in userInput.walls)
+        {
+            wall.transform.gameObject.GetComponentInChildren<Renderer>().material.color = baseItemColor;
+        }
+        if (tickBoxList[0].GetComponent<Toggle>().isOn)
+        {
+            foreach(GameObject wall in userInput.walls)
+            {
+                if (wall.transform.name == "Top")
+                {
+                    wall.transform.GetComponent<WallInfo>().isbeingUsed = true;
+                    wall.transform.gameObject.GetComponentInChildren<Renderer>().material.color = highlightItemColor;
+                }
+            }
+        }
+        if (tickBoxList[1].GetComponent<Toggle>().isOn)
+        {
+            foreach (GameObject wall in userInput.walls)
+            {
+                if (wall.transform.name == "Bottom")
+                {
+                    wall.transform.GetComponent<WallInfo>().isbeingUsed = true;
+                    wall.transform.gameObject.GetComponentInChildren<Renderer>().material.color = highlightItemColor;
+                }
+            }
+        }
+        if (tickBoxList[2].GetComponent<Toggle>().isOn)
+        {
+            foreach (GameObject wall in userInput.walls)
+            {
+                if (wall.transform.name == "Left")
+                {
+                    wall.transform.GetComponent<WallInfo>().isbeingUsed = true;
+                    wall.transform.gameObject.GetComponentInChildren<Renderer>().material.color = highlightItemColor;
+                }
+            }
+        }
+        if (tickBoxList[3].GetComponent<Toggle>().isOn)
+        {
+            foreach (GameObject wall in userInput.walls)
+            {
+                if (wall.transform.name == "Right")
+                {
+                    wall.transform.GetComponent<WallInfo>().isbeingUsed = true;
+                    wall.transform.gameObject.GetComponentInChildren<Renderer>().material.color = highlightItemColor;
+                }
+            }
+        }
+    }
+
+    public void generateKitchen()
+    {
+        userInput.generateKitchen = true;
+    }
+
+    public void setDrawerAmount()
+    {
+        userInput.amountOfDrawers = DrawerDropdown.GetComponent<Dropdown>().value;
+    }
+
+    public void setStorageAmount()
+    {
+        userInput.amountOfStorage = StorageDropdown.GetComponent<Dropdown>().value;
+    }
 
 }

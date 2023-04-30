@@ -8,8 +8,14 @@ public class KitchenCabinetHandle : MonoBehaviour
     public bool collisionDet = false;
     public bool activeUnit = false;
     public string wallPlacement = null;
+    public string secondaryWallPlacement = "notSet";
     private float cabWidth = 0.3f;
     public Transform raycastPoint;
+    public GameObject topWall;
+    public GameObject bottomWall;
+    public GameObject leftWall;
+    public GameObject rightWall;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,23 +35,72 @@ public class KitchenCabinetHandle : MonoBehaviour
 
     public bool checkCollisions()
     {
+        foreach (GameObject Wall in user.walls)
+        {
+            if(Wall.transform.name == "Top")
+            {
+                topWall = Wall;
+            }
+            else if (Wall.transform.name == "Bottom")
+            {
+                bottomWall = Wall;
+            }
+            else if (Wall.transform.name == "Left")
+            {
+                leftWall = Wall;
+            }
+            else if (Wall.transform.name == "Right")
+            {
+                rightWall = Wall;
+            }
+        }
         foreach(GameObject cabinet in user.kitchenObjsPlaced)
         {
-            if (cabinet.transform != this.transform)
+            
+            if(user.lastWallKitchenUnit.name == cabinet.GetComponent<KitchenCabinetHandle>().wallPlacement || user.lastWallKitchenUnit.name == cabinet.GetComponent<KitchenCabinetHandle>().secondaryWallPlacement)
             {
-                if(user.lastWallKitchenUnit.name == cabinet.GetComponent<KitchenCabinetHandle>().wallPlacement)
+                Debug.Log(cabinet.GetComponentInChildren<Transform>().name);
+                if(cabinet.GetComponentInChildren<Transform>().name == "CornerCabinet(Clone)")
                 {
-                    RaycastHit hit;
-                    if (Physics.Raycast(raycastPoint.position, raycastPoint.forward, out hit))
+                    cabWidth = 0.65f;
+                }
+                else
+                {
+                    cabWidth = 0.3f;
+                }
+                RaycastHit hit;
+                if (Physics.Raycast(raycastPoint.position, raycastPoint.forward, out hit))
+                {
+                    if (user.lastWallKitchenUnit.name == "Top")
                     {
-                        if (user.lastWallKitchenUnit.name == "Top")
+                        if (hit.point.x + cabWidth >= cabinet.transform.position.x - cabWidth && hit.point.x - cabWidth <= cabinet.transform.position.x + cabWidth && cabinet.transform != this.transform)
                         {
-                            Debug.Log(this.transform.position.x + this.transform.localScale.x / 2);
-                            Debug.Log(cabinet.transform.position.x - cabinet.transform.localScale.x / 2);
-                            if (hit.point.x + cabWidth >= cabinet.transform.position.x - cabWidth && hit.point.x - cabWidth <= cabinet.transform.position.x + cabWidth)
-                            {
-                                return true;
-                            }
+                            return true;
+                        }
+                        if(hit.point.x + cabWidth >= rightWall.transform.position.x)
+                        {
+                            return true;
+                        }
+                    }
+                    if (user.lastWallKitchenUnit.name == "Bottom")
+                    {
+                        if (hit.point.x + cabWidth >= cabinet.transform.position.x - cabWidth && hit.point.x - cabWidth <= cabinet.transform.position.x + cabWidth && cabinet.transform != this.transform)
+                        {
+                            return true;
+                        }
+                    }
+                    if (user.lastWallKitchenUnit.name == "Left")
+                    {
+                        if (hit.point.z + cabWidth >= cabinet.transform.position.z - cabWidth && hit.point.z - cabWidth <= cabinet.transform.position.z + cabWidth && cabinet.transform != this.transform)
+                        {
+                            return true;
+                        }
+                    }
+                    if (user.lastWallKitchenUnit.name == "Right")
+                    {
+                        if (hit.point.z + cabWidth >= cabinet.transform.position.z - cabWidth && hit.point.z - cabWidth <= cabinet.transform.position.z + cabWidth && cabinet.transform != this.transform)
+                        {
+                            return true;
                         }
                     }
                 }
@@ -55,5 +110,6 @@ public class KitchenCabinetHandle : MonoBehaviour
         return false;
     }
 
+    
 
 }

@@ -59,9 +59,11 @@
     <Compile Include="Assets\Scripts\KitchenPlacement.cs" />
     <Compile Include="Assets\Scripts\GUIController.cs" />
     <Compile Include="Assets\Scripts\MoveGhost.cs" />
+    <Compile Include="Assets\Alstrainfinite\Usable Objs\KitchenCabinetHandle.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
-    <Compile Include="Assets\Alstrainfinite\Usable Objs\KitchenCabinetHandle.cs" />
+    <Compile Include="Assets\WallSelectionScene.cs" />
+    <Compile Include="Assets\GenerationScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

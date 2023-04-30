@@ -10,6 +10,7 @@ TagManager:
   - DropBox
   - unit
   - raycastPoint
+  - TickBox
   layers:
   - Default
   - TransparentFX

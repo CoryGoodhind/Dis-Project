@@ -12,11 +12,15 @@ public class UserMovement : MonoBehaviour
     public bool objectRotated = false;
     public bool ghostMode = true;
     public bool wallScene = true;
+    public bool wallSelectorScene = false;
     public bool kitchenPlacementScene = false;
     public bool ghostKitchenPlacement = false;
+    public bool generateKitchen = false;
     public GameObject currentKitchenUnit;
     public bool kitchenUnitPlaced = false;
     public GameObject lastWallKitchenUnit;
+    public int amountOfDrawers = 0;
+    public int amountOfStorage = 0;
 
     public bool collisionWithUnit = false;
 
@@ -30,6 +34,7 @@ public class UserMovement : MonoBehaviour
     public GameObject sinkCabinet;
     public List<GameObject> cabinets;
     public List<GameObject> kitchenObjsPlaced = new List<GameObject>();
+    public List<GameObject> walls = new List<GameObject>();
 
 
     [SerializeField] private Transform UserCam;
@@ -39,7 +44,7 @@ public class UserMovement : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
+        wallSelectorScene = false;
         cabinets = new List<GameObject> { null, twoDrawer, threeDrawer, baseCabinet, cornerCabinet, fridge, hobCabinet, oven, sinkCabinet };
     }
     private void Update()
